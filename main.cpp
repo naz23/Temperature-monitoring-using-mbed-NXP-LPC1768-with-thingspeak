@@ -5,8 +5,8 @@ int main()
 {
     EthernetInterface eth;
     eth.init(); //Use DHCP
-
     eth.connect();
+    printf("IP Address is %s\n", eth.getIPAddress());
     
     TCPSocket sock;
     sock.connect("mbed.org", 80);
