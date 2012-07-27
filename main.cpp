@@ -10,24 +10,22 @@ int main() {
     TCPSocketConnection sock;
     sock.connect("mbed.org", 80);
     
-    char http_cmd[] = "GET /media/uploads/donatien/hello.txt HTTP/1.1\r\nHost: %s\r\n\r\n";
-    sock.send_all(http_cmd, sizeof(http_cmd) - 1, 3000);
+    char http_cmd[] = "GET /media/uploads/mbed_official/hello.txt HTTP/1.0\n\n";
+    sock.send_all(http_cmd, sizeof(http_cmd));
     
-    char in_buf[256];
+    char buffer[300];
     int ret;
     while (true) {
-        ret = sock.receive(in_buf, 255, 100);
+        ret = sock.receive(buffer, sizeof(buffer)-1);
         if (ret <= 0)
             break;
-        
-        in_buf[ret] = '\0';
-        printf("Received %d chars from server: %s\n", ret, in_buf);
+        buffer[ret] = '\0';
+        printf("Received %d chars from server:\n%s\n", ret, buffer);
     }
       
     sock.close();
     
     eth.disconnect();
     
-    while(1) {
-    }
+    while(1) {}
 }
