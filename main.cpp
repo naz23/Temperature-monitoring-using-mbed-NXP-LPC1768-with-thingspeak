@@ -11,7 +11,7 @@ int main() {
     sock.connect("mbed.org", 80);
     
     char http_cmd[] = "GET /media/uploads/mbed_official/hello.txt HTTP/1.0\n\n";
-    sock.send_all(http_cmd, sizeof(http_cmd));
+    sock.send_all(http_cmd, sizeof(http_cmd)-1);
     
     char buffer[300];
     int ret;
